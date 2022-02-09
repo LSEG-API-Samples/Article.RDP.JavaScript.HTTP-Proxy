@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>RDP Web Proxy Example with Express.js</title>
+      <link rel="stylesheet" href="./css/styles.css">
+   </head>
+   <body>
+      <h2>RDP Web Proxy Example with Express.js</h1>
+      <div id="divAuthen">
+         <p>Input your RDP Credentials</p>
+         <label for="inputUsername" class="label">Username:</label> <input type="email" placeholder="RDP User ID (email)" id="inputUsername" >   
+         <br/>
+         <label for="inputPassword">Password:</label> <input type="password" placeholder="your RDP password" id="inputPassword">
+         <br/>
+         <label for="inputAppkey" >Client-ID:</label> <input type="text" placeholder="your RDP App-Key" id="inputAppkey">
+         <br/>
+         <button id="btnAuthen">Authentication</button> <button id="btnLogOut">Log out</button>
+         <br/>
+         <p>
+            Authentication Result: <span id="authenResult"></span>
+         </p>
+      </div>
+      <div id="divQuery1">
+            <!-- <p>Request ESG Data</p> -->
+            <label for="inputDataSymbol">Input Symbol:</label> <input type="text" placeholder="RIC Code" id="inputDataSymbol"> <span id="txtSymbolStatus"></span>
+            <br/>
+            <br/>
+            <div class="row">
+              <div class="column">
+                <button id="btnESG">Request ESG Data</button>
+                <br>
+                <textarea id="txtESGJSON" name="txtESGJSON" rows="10" cols="80"></textarea>                
+              </div>
+              <div class="column">
+                <button id="btnGetNewsHeadlines">Request Latest News Headlines</button>
+                <br>
+                <textarea id="txtNewsHeadlines" name="txtNewsHeadlines" rows="10" cols="80">
+               </textarea>          
+              </div>  
+      </div>
+      <div id="divQuery2">
+
+         <div class="row">
+            <div class="column">
+              <button id="btnSymbology">Convert this RIC to ISIN and Exchange Ticker</button>
+              <br>
+              <textarea id="txtSymbology" name="txtSymbology" rows="10" cols="80"></textarea>                
+            </div>
+            <div class="column">
+              <button id="btnRDPPermID">Convert this RIC to PermID</button>
+              <br>
+              <textarea id="txtRDPPermID" name="txtRDPPermID" rows="10" cols="80">
+             </textarea>          
+            </div>
+         </div>        
+      </div>
+
+      <!-- <div id="grid">
+         <p>DataGrid</p>
+         <div id="esgTable"></div>
+         <div id="dswsTable"></div>
+      </div> -->
+     
+      <script src="app/app.js"></script>
+   </body>
+</html>
