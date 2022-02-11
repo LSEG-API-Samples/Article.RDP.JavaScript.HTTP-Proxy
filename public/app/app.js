@@ -1,3 +1,10 @@
+//|-----------------------------------------------------------------------------
+//|            This source code is provided under the Apache 2.0 license      --
+//|  and is provided AS IS with no warranty or guarantee of fit for purpose.  --
+//|                See the project's LICENSE.md for details.                  --
+//|           Copyright (C) 2017-2022 Refinitiv. All rights reserved.         --
+//|-----------------------------------------------------------------------------
+
 const inputUsername = document.querySelector('#inputUsername')
 const inputPassword = document.querySelector('#inputPassword')
 const inputAppkey = document.querySelector('#inputAppkey')
@@ -234,7 +241,7 @@ const authenRDP = async (opt) => {
         authReq['grant_type'] = 'refresh_token'
     }
 
-    console.log(JSON.stringify(authReq))
+    //console.log(JSON.stringify(authReq))
 
     // Send HTTP Request
     const response = await fetch(authenURL, {
