@@ -7,7 +7,7 @@
 
 const path = require('path')
 const express = require('express')
-const httpProxy = require('http-proxy');
+const httpProxy = require('http-proxy'); //Import the HTTP-Proxy module
 
 require('dotenv').config()
 
@@ -20,22 +20,47 @@ app.set('x-powered-by' , 'Express.js')
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
+//Use this options for creating a reverse proxy to other domains.
 const options = {
     changeOrigin: true,
     target: {
         https: true
     }
 }
+//Create a reverse proxy server
 const apiProxy = httpProxy.createProxyServer(options);
+
 const rdpServer = process.env.RDP_BASE_URL
+const rdpAuthVersion = process.env.RDP_AUTH_VERSION
+const rdpEsgVersion = process.env.RDP_ESG_VERSION
+const rdpNewsVersion = process.env.RDP_NEWS_VERSION
+const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION
 
-
-app.post(`/auth/oauth2/${process.env.RDP_AUTH_VERSION}/*`, function(req, res) {
+//For the RDP Authentication service
+app.post(`/auth/oauth2/${rdpAuthVersion}/*`, (req, res) => {
     console.log(`redirecting to RDP ${req.url}`)
     apiProxy.web(req, res, {target: rdpServer})
 });
 
+//For the RDP Symbology service 
+app.post(`/discovery/symbology/${rdpSymbologyVersion}/lookup`, (req, res) => {
+    console.log(`redirecting to RDP ${req.url}`)
+    apiProxy.web(req, res, {target: rdpServer})
+})
 
+//For the RDP ESG service 
+app.get(`/data/environmental-social-governance/${rdpEsgVersion}/views/*`, (req, res) => {
+    console.log(`redirecting to RDP ${req.url}`)
+    apiProxy.web(req, res, {target: rdpServer})
+})
+
+//For the RDP News service 
+app.get(`/data/news/${rdpNewsVersion}/headlines/`, (req, res) => {
+    console.log(`redirecting to RDP ${req.url}`)
+    apiProxy.web(req, res, {target: rdpServer})
+})
+
+//Start the server
 app.listen(port, () => {
     console.log(`Server is up on port ${port}.`)
 })

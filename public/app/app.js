@@ -58,6 +58,8 @@ btnAuthen.addEventListener('click', async () => {
         return authenResult.textContent = 'Please input your credentials'
     }
 
+    authenResult.textContent = 'Authenticating...'
+
     try {
         await authenRDP({
             username,
@@ -66,6 +68,8 @@ btnAuthen.addEventListener('click', async () => {
             refresh_token
         })
         authenResult.textContent = 'Authentication to RDP success'
+
+        //Enable all buttons for subscriptions
         btnESG.disabled = false
         btnGetNewsHeadlines.disabled = false
         btnSymbology.disabled = false
@@ -81,6 +85,8 @@ btnLogOut.addEventListener('click', async () => {
     try {
         let response = await revokeRDP(access_token, client_id)
         authenResult.textContent = response
+
+        //Clear Screen UI
         btnESG.disabled = true
         btnGetNewsHeadlines.disabled = true
         btnSymbology.disabled = true
@@ -91,6 +97,9 @@ btnLogOut.addEventListener('click', async () => {
         txtSymbology.value = ''
         txtRDPPermID.value = ''
         inputDataSymbol.value = ''
+        inputUsername.value = ''
+        inputPassword.value = ''
+        inputAppkey.value = ''
     } catch (error) {
         console.log(error)
         authenResult.textContent = error
@@ -105,6 +114,7 @@ btnESG.addEventListener('click', async () => {
         return txtSymbolStatus.textContent = 'Please input symbol'
     }
 
+    txtESGJSON.value = 'Loading...'
     try {
         let data = await requestESG(symbol, access_token)
         // console.log(data)
@@ -124,7 +134,7 @@ btnGetNewsHeadlines.addEventListener('click', async () => {
     if (symbol.length === 0) {
         return txtSymbolStatus.textContent = 'Please input symbol'
     }
-    
+    txtNewsHeadlines.value = 'Loading...'
     try {
         let data = await getNewsHeadlines(symbol, access_token)
         //console.log(data)
@@ -163,6 +173,8 @@ btnSymbology.addEventListener('click', async () => {
         ],
         "type": "auto"
     }
+
+    txtSymbology.value = 'Loading...'
 
     try {
         let data = await getSymbology(symbol, reqBody, access_token)
@@ -207,7 +219,7 @@ btnRDPPermID.addEventListener('click', async () => {
         "type": "auto"
     }
 
-
+    txtRDPPermID.value = 'Loading...'
     try {
         let data = await getSymbology(symbol, reqBody, access_token)
         //console.log(data)
@@ -232,11 +244,12 @@ const authenRDP = async (opt) => {
         takeExclusiveSignOnControl
     }
 
+    //First Login
     if (opt['refresh_token'].length === 0) {
         authReq['password'] = opt['password']
         authReq['grant_type'] = 'password'
         authReq['scope'] = scope
-    } else {
+    } else { //Refresh Token
         authReq['refresh_token'] = opt['refresh_token']
         authReq['grant_type'] = 'refresh_token'
     }
@@ -258,6 +271,7 @@ const authenRDP = async (opt) => {
     }
     //Parse response to JSON
     authResponse = await response.json()
+    //Set Token information to variables
     access_token = authResponse.access_token
     refresh_token = authResponse.refresh_token
     expires_in = authResponse.expires_in
@@ -296,6 +310,7 @@ const revokeRDP = async (accessToken, client_id) => {
     // Define the timer to refresh our token 
 }
 
+//Send a Refresh Grant message before Access Token's expires (expires_in time)
 const setRefreshTimer = () => {
     let millis = (parseInt(expires_in) - 30) * 1000; //
     let intervalID = window.setInterval(async () => {
@@ -312,8 +327,11 @@ const setRefreshTimer = () => {
     }, millis);
 }
 
+// Request News Headlines Data
 const getNewsHeadlines = async (symbol, accessToken) => {
-    const rdpNewsURL = `https://api.refinitiv.com/data/news/v1/headlines?query=${symbol}`
+
+    //https://api.refinitiv.com/data/news/v1/headlines?query=${symbol}
+    const rdpNewsURL = `/data/news/v1/headlines?query=${symbol}`
 
     const response = await fetch(rdpNewsURL, {
         method: 'GET',
@@ -331,8 +349,11 @@ const getNewsHeadlines = async (symbol, accessToken) => {
     return await response.json()
 }
 
+// RDP Symbology Lookup Data
 const getSymbology = async (symbol, reqBody, accessToken) => {
-    const rdpSymbologyURL = `https://api.refinitiv.com/discovery/symbology/${rdpSymbologyVersion}/lookup`
+
+    //https://api.refinitiv.com/discovery/symbology/${rdpSymbologyVersion}/lookup
+    const rdpSymbologyURL = `/discovery/symbology/${rdpSymbologyVersion}/lookup`
 
     const response = await fetch(rdpSymbologyURL, {
         method: 'POST',
@@ -351,10 +372,11 @@ const getSymbology = async (symbol, reqBody, accessToken) => {
     return await response.json()
 }
 
-
+// Request Environment, Social, and Governance (ESG) Data
 const requestESG = async (symbol, accessToken) => {
 
-    const esgURL = `https://api.refinitiv.com/data/environmental-social-governance/${rdpEsgVersion}/views/basic?universe=${symbol}`
+    //https://api.refinitiv.com/data/environmental-social-governance/${rdpEsgVersion}/views/basic?universe=${symbol}
+    const esgURL = `/data/environmental-social-governance/${rdpEsgVersion}/views/basic?universe=${symbol}`
 
     // Send HTTP Request
     const response = await fetch(esgURL, {
@@ -371,5 +393,4 @@ const requestESG = async (symbol, accessToken) => {
     }
     //Parse response to JSON
     return await response.json()
-
 }
