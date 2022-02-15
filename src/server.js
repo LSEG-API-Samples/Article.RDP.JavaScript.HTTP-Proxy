@@ -15,7 +15,7 @@ const app = express()
 const port = process.env.PORT || 8080 //Support both local environment and deployed location
 
 
-const publicDirectoryPath = path.join(__dirname, './public')
+const publicDirectoryPath = path.join(__dirname, '../public')
 app.set('x-powered-by' , 'Express.js')
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))

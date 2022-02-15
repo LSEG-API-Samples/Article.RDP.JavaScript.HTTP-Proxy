@@ -4,3 +4,7 @@ diagram
 images
 .env
 README.md
+.git
+.gitignore
+.vscode
+Dockerfile*

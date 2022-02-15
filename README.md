@@ -485,7 +485,7 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
     ```
 3. Once the build is a success, you can create and run the container with the following command
     ```
-    $> docker run --name rdp-http-proxy -it --env-file .env rdp-http-proxy
+    $> docker run --name rdp-http-proxy -it -d --env-file .env -p 8080:8080 rdp-http-proxy
     ```
 4. Open the **http:localhost:8080** URL in your web browser to run the example web application.
 5. You can stop and remove a container with the following commands.
@@ -493,3 +493,5 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
     $> docker stop rdp-http-proxy
     $> docker rm rdp-http-proxy
     ```
+
+
