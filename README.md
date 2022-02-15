@@ -466,3 +466,30 @@ This demo project requires the following dependencies software.
 3. Internet connection.
 
 Please contact your Refinitiv's representative to help you to access the RDP account and services. You can find more detail regarding the RDP access credentials set up from the lease see the *Getting Started for User ID* section of [Getting Start with Refinitiv Data Platform article](https://developers.refinitiv.com/en/article-catalog/article/getting-start-with-refinitiv-data-platform) article.
+
+### <a id="python_example_run"></a>How to run the example with Docker
+
+Please be informed that you need the [Docker Desktop/Engine](https://docs.docker.com/get-docker/) to run the example with Docker. 
+
+1. Go to the project folder and create a file name ```.env```  with the following content.
+    ```
+    RDP_BASE_URL=https://api.refinitiv.com
+    RDP_AUTH_VERSION=v1
+    RDP_ESG_VERSION=v2
+    RDP_SYMBOLOGY_VERSION=v1
+    RDP_NEWS_VERSION=v1
+    ```
+2. Run ```$> docker build -t <project tag name> .``` command in a console to build an image from a Dockerfile.
+    ```
+    $> docker build -t rdp-http-proxy .
+    ```
+3. Once the build is a success, you can create and run the container with the following command
+    ```
+    $> docker run --name rdp-http-proxy -it --env-file .env rdp-http-proxy
+    ```
+4. Open the **http:localhost:8080** URL in your web browser to run the example web application.
+5. You can stop and remove a container with the following commands.
+    ```
+    $> docker stop rdp-http-proxy
+    $> docker rm rdp-http-proxy
+    ```
