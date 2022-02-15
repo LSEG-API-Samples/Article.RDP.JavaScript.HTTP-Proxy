@@ -5,11 +5,11 @@
 - Prerequisite: Refinitiv Data Platform credentials.
 
 Example Code Disclaimer:
-ALL EXAMPLE CODE IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS FOR ILLUSTRATIVE PURPOSES ONLY. REFINITIV MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF EXAMPLE CODE, OR THE INFORMATION, CONTENT OR MATERIALS USED IN CONNECTION WITH EXAMPLE CODE. YOU EXPRESSLY AGREE THAT YOUR USE OF EXAMPLE CODE IS AT YOUR SOLE RISK
+ALL EXAMPLE CODE IS PROVIDED ON AN “AS IS” AND “AS AVAILABLE” BASIS FOR ILLUSTRATIVE PURPOSES ONLY. REFINITIV MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, AS TO THE OPERATION OF THE EXAMPLE CODE, OR THE INFORMATION, CONTENT, OR MATERIALS USED IN CONNECTION WITH THE EXAMPLE CODE. YOU EXPRESSLY AGREE THAT YOUR USE OF THE EXAMPLE CODE IS AT YOUR SOLE RISK.
 
 ## <a id="overview"></a>Overview
 
-The [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The developers which are data scientists, financial coder, or traders can use any programming languages that support HTTP request-response and JSON messages to retrieve content from the RDP in a straightforward way on any platform.
+The [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The developers which are data scientists, financial coders, or traders can use any programming languages that support HTTP request-response and JSON messages to retrieve content from the RDP in a straightforward way on any platform.
 
 However, if you are a web developer, your JavaScript application cannot connect to the RDP directly because of the [***Same-origin***](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) policy. All web browsers enforce this policy to prevent browsers access different domain/server resources. And of cause, your web server/web application domain is always different from the RDP because they are hosted on different sites. 
 
@@ -467,7 +467,19 @@ This demo project requires the following dependencies software.
 
 Please contact your Refinitiv's representative to help you to access the RDP account and services. You can find more detail regarding the RDP access credentials set up from the lease see the *Getting Started for User ID* section of [Getting Start with Refinitiv Data Platform article](https://developers.refinitiv.com/en/article-catalog/article/getting-start-with-refinitiv-data-platform) article.
 
-### <a id="python_example_run"></a>How to run the example with Docker
+##  <a id="project_files"></a>Project files
+This example project contains the following files and folders
+1. *src/server.js* folder: The simple web-server and http-proxy application file.
+2. *public/app/app.js*: The simple client-side JavaScript application file.
+3. *public/*: The simple client-side web page folder.
+4. *images*: Project images folder.
+5. *package.json* and *package-lock.json*: The project NPM dependencies files.
+6. *.env.example*: An example environment variable file.
+7. *Dockerfile*: Project's Docker file.
+8. *LICENSE.md*: Project's license file.
+9. *README.md*: Project's README file.
+
+## <a id="docker_run"></a>How to run the example with Docker
 
 Please be informed that you need the [Docker Desktop/Engine](https://docs.docker.com/get-docker/) to run the example with Docker. 
 
@@ -493,5 +505,61 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
     $> docker stop rdp-http-proxy
     $> docker rm rdp-http-proxy
     ```
+## <a id="manual_run"></a>How to run the example manually
+
+1. Go to the project folder and create a file name ```.env```  with the following content.
+    ```
+    RDP_BASE_URL=https://api.refinitiv.com
+    RDP_AUTH_VERSION=v1
+    RDP_ESG_VERSION=v2
+    RDP_SYMBOLOGY_VERSION=v1
+    RDP_NEWS_VERSION=v1
+    ```
+2. Run ```$> npm install``` command in a console to install all dependencies.
+3. Once the dependencies installation is a success, you can run the example with the following command
+    ```
+    $> npm start
+    ```
+4. Wait until the console shows ```Server is up on port 8080.``` message.
+5. Open the **http:localhost:8080** URL in your web browser to run the example web application.
+6. You can press ```Ctrl+C``` buttons to exit the application at any time.
+
+## <a id="troubleshooting"></a>Troubleshooting
+
+*Question* : I double-click the *index.html* file to open the example web application, input my RDP credentials, then click the authentication button. The page shows **TypeError: Failed to fetch** error message.
+
+*Answer*: You cannot run the example by just double-click the *index.html* file. You need to run the example web-server and open the example web application with **http:localhost:8080** URL in the web browser.
+
+*Question* : I try to start the web-server with the ```npm start``` command, but it shows **Error: Cannot find module 'express'** error message.
+
+*Answer*: You need to install the project dependencies with the ```npm install``` command before run the ```npm start``` command.
+
+*Question* : I do not have the RDP credentials.
+
+*Answer*: Please contact your Refinitiv's representative to help you to access the RDP account and services.
+
+*Question* : I got the ```{"error":"access_denied"}``` error message when I click the authentication button.
+
+*Answer*: This error message means your RDP credentials do not have a permission to access the API. Please contact your Refinitiv's representative to verify your account permission.
+
+*Question* : I got the ```{"error": "access_denied", "error_description": "Invalid username or password."}``` when I click the authentication button.
+
+*Answer*: This error message means your RDP credentials are not valid. Please contact your Refinitiv's representative to verify your credentials.
+
+*Question* : I got the error 403 message when I click the request RDP data buttons.
+
+*Answer*: The HTTP 403 (403 Forbidden) means you do not have a permission to request data. Please contact your Refinitiv's representative to verify your account permission.
+
+## <a id="Conclusion"></a>Conclusion
+
+## <a id="references"></a>References
+For further details, please check out the following resources:
+* [Refinitiv Data Platform APIs page](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) on the [Refinitiv Developer Community](https://developers.refinitiv.com/) website.
+* [Refinitiv Data Platform APIs Playground page](https://api.refinitiv.com).
+* [Refinitiv Data Platform APIs: Introduction to the Request-Response API](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#introduction-to-the-request-response-api).
+* [Refinitiv Data Platform APIs: Authorization - All about tokens](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-all-about-tokens).
+* [RDP APis Tutorial - Authorization for browser based applications](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
+* [Build a Web application to display ESG data using Angular and RDP API - Refinitiv APIs Samples](https://github.com/Refinitiv-API-Samples/Example.RDPAPI.TypeScript.AngularESGWebapp).
 
 
+For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [the Developers Community Q&A page](https://community.developers.refinitiv.com/).
