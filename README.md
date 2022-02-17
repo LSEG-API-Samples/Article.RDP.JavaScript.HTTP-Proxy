@@ -552,6 +552,12 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
 
 ## <a id="Conclusion"></a>Conclusion
 
+With software development architecture, the application (or service) does not access only servers in its backend anymore. It needs to connect to various service providers across internet such as Cloud data storage, Web Services, etc. The proxy and reverse proxy servers help the application to integrate with the different services and data providers. 
+
+This example project shows how to integrate the web browser application to the different services with the reverse proxy server. The client-side JavaScript application can access data from various services that hosted on different locations such as the Refinitiv Refinitiv Data Platform, [Datastream Web Service](https://developers.refinitiv.com/en/api-catalog/eikon/datastream-web-service/), [https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api](https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api), etc. However, this example implementation aims for Development and POC purposes only, not for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. 
+
+In the same time, the [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The APIs are easy to integrate to any applications and platforms that supports the HTTP protocol and JSON message format. 
+
 ## <a id="references"></a>References
 For further details, please check out the following resources:
 * [Refinitiv Data Platform APIs page](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) on the [Refinitiv Developer Community](https://developers.refinitiv.com/) website.
@@ -560,6 +566,5 @@ For further details, please check out the following resources:
 * [Refinitiv Data Platform APIs: Authorization - All about tokens](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-all-about-tokens).
 * [RDP APis Tutorial - Authorization for browser based applications](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
 * [Build a Web application to display ESG data using Angular and RDP API - Refinitiv APIs Samples](https://github.com/Refinitiv-API-Samples/Example.RDPAPI.TypeScript.AngularESGWebapp).
-
 
 For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [the Developers Community Q&A page](https://community.developers.refinitiv.com/).
