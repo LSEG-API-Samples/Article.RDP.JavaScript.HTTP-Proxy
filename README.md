@@ -37,7 +37,7 @@ This browser's behavior can be illustrated with the following diagram.
 
 The 3rd Party Web APIs do not need to be the RDP specifically, it can be your microservice that is hosted on a different domain too. So, how can we handle this? You can build the API Gateway as a reverse proxy to redirect traffic to the different services according to the URL of the request.
 
-![figure-2](images/03_domains_2.png "API Gateway Reverse Proxy")
+![figure-3](images/03_domains_2.png "API Gateway Reverse Proxy")
 
 **As of February 2022**:
 Some RDP services like the Environmental - Social - and Governance (ESG), News, Symbology, etc support the cross-domain Control-Allow-Origin. You can call them directly from the web browsers (if you already have the access token). However, I am going to apply those calls with the proxy for easy management and prevent any future changes.
@@ -159,6 +159,8 @@ The code above handles HTTP operations for the RDP request messages, then redire
 - Redirect incoming HTTP Post request message for ```/discovery/symbology/v1/lookup``` to the RDP ```https://api.refinitiv.com/discovery/symbology/v1/lookup``` endpoint.
 - Redirect incoming HTTP Get request message for ```/data/environmental-social-governance/v2/views/*``` to the RDP ```https://api.refinitiv.com/data/environmental-social-governance/v2/views/*``` endpoint.
 - Redirect incoming HTTP Get request message for ```/data/news/v1/headlines/``` to the RDP ```https://api.refinitiv.com/data/news/v1/headlines/``` endpoint.
+
+![figure-4](images/04_proxy.png "Reverse Proxy Logic")
 
 Now the server.js web-server application is ready to serve static contents and does a reverse-proxy of the RDP operations.
 
@@ -457,7 +459,9 @@ btnRDPPermID.addEventListener('click', async () => {
     }
 })
 ```
-That covers the basic HTTP operations workflow of the client-side *app.js* code. 
+That covers the basic HTTP operations workflow of the client-side *app.js* code.  The example web application is now can login to the RDP, get access token, and request data through the http-proxy.
+
+![figure-5](images/05_app_example.png "Example App")
 
 ## <a id="prerequisite"></a>Prerequisite
 This demo project requires the following dependencies software.
@@ -566,5 +570,11 @@ For further details, please check out the following resources:
 * [Refinitiv Data Platform APIs: Authorization - All about tokens](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-all-about-tokens).
 * [RDP APis Tutorial - Authorization for browser based applications](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
 * [Build a Web application to display ESG data using Angular and RDP API - Refinitiv APIs Samples](https://github.com/Refinitiv-API-Samples/Example.RDPAPI.TypeScript.AngularESGWebapp).
+* [Limitations and Guidelines for the RDP Authentication Service](https://developers.refinitiv.com/en/article-catalog/article/limitations-and-guidelines-for-the-rdp-authentication-service) article.
+* [How to test HTTP REST API easily with Visual Studio Code - Thunder Client extensions](https://developers.refinitiv.com/en/article-catalog/article/how-to-test-http-rest-api-easily-with-visual-studio-code---thund) article.
+* [Getting Started with Refinitiv Data Platform](https://developers.refinitiv.com/en/article-catalog/article/getting-start-with-refinitiv-data-platform) article.
+* [How to test Refinitiv Data Platform REST API easily with Visual Studio Code - REST Client extensions](https://developers.refinitiv.com/en/article-catalog/article/how-to-test-refinitiv-data-platform-rest-api-easily-with-visual-studio-code) article.
+* [Using RDP API to request ESG data on Jupyter Notebook](https://developers.refinitiv.com/en/article-catalog/article/using-rdp-api-request-esg-data-jupyter-notebook) article.
+* [Use Fiddler to Capture RDP Interactions](https://developers.refinitiv.com/en/article-catalog/article/use-fiddler-to-capture-rdp-interactions) article.
 
 For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [the Developers Community Q&A page](https://community.developers.refinitiv.com/).

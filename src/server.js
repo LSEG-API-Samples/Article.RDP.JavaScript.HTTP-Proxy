@@ -30,11 +30,11 @@ const options = {
 //Create a reverse proxy server
 const apiProxy = httpProxy.createProxyServer(options);
 
-const rdpServer = process.env.RDP_BASE_URL
-const rdpAuthVersion = process.env.RDP_AUTH_VERSION
-const rdpEsgVersion = process.env.RDP_ESG_VERSION
-const rdpNewsVersion = process.env.RDP_NEWS_VERSION
-const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION
+const rdpServer = process.env.RDP_BASE_URL || 'https://api.refinitiv.com'
+const rdpAuthVersion = process.env.RDP_AUTH_VERSION || 'v1'
+const rdpEsgVersion = process.env.RDP_ESG_VERSION || 'v2'
+const rdpNewsVersion = process.env.RDP_NEWS_VERSION || 'v1'
+const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION || 'v1'
 
 //For the RDP Authentication service
 app.post(`/auth/oauth2/${rdpAuthVersion}/*`, (req, res) => {

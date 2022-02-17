@@ -7,14 +7,14 @@
       <link rel="stylesheet" href="./css/styles.css">
    </head>
    <body>
-      <h2>RDP Web Proxy Example with Express.js</h1>
+      <h2>RDP Web Proxy Example with Express.js</h2>
       <div id="divAuthen">
          <p>Input your RDP Credentials</p>
-         <label for="inputUsername" class="label">Username:</label> <input type="email" placeholder="RDP User ID (email)" id="inputUsername" >   
+         <label for="inputUsername" class="label">Username:</label> <input type="email" placeholder="RDP User ID (email)" id="inputUsername" size="20">   
          <br/>
-         <label for="inputPassword">Password:</label> <input type="password" placeholder="your RDP password" id="inputPassword">
+         <label for="inputPassword">Password:</label> <input type="password" placeholder="RDP Password" id="inputPassword" size="20">
          <br/>
-         <label for="inputAppkey" >Client-ID:</label> <input type="text" placeholder="your RDP App-Key" id="inputAppkey">
+         <label for="inputAppkey" >Client-ID:</label> <input type="text" placeholder="RDP App-Key (Client-ID)" id="inputAppkey" size="60">
          <br/>
          <button id="btnAuthen">Authentication</button> <button id="btnLogOut">Log out</button>
          <br/>

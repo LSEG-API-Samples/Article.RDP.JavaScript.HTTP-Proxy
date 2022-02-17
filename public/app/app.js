@@ -40,11 +40,12 @@ const rdpEsgVersion = 'v2'
 const rdpAuthVersion = 'v1'
 const rdpSymbologyVersion = 'v1'
 
-btnESG.disabled = true
-btnGetNewsHeadlines.disabled = true
-btnSymbology.disabled = true
-btnRDPPermID.disabled = true
-btnLogOut.disabled = true
+
+window.addEventListener('load', ()=>{
+    //console.log('load')
+    //Init screen UIs
+    disableUIs()
+})
 
 // ---------------- HTML Buttons Handler ---------------------------------------- //
 
@@ -70,11 +71,7 @@ btnAuthen.addEventListener('click', async () => {
         authenResult.textContent = 'Authentication to RDP success'
 
         //Enable all buttons for subscriptions
-        btnESG.disabled = false
-        btnGetNewsHeadlines.disabled = false
-        btnSymbology.disabled = false
-        btnRDPPermID.disabled = false
-        btnLogOut.disabled = false
+        enableUIs()
     } catch (error) {
         console.log(error)
         authenResult.textContent = error
@@ -87,19 +84,7 @@ btnLogOut.addEventListener('click', async () => {
         authenResult.textContent = response
 
         //Clear Screen UI
-        btnESG.disabled = true
-        btnGetNewsHeadlines.disabled = true
-        btnSymbology.disabled = true
-        btnRDPPermID.disabled = true
-        btnLogOut.disabled = true
-        txtESGJSON.value = ''
-        txtNewsHeadlines.value = ''
-        txtSymbology.value = ''
-        txtRDPPermID.value = ''
-        inputDataSymbol.value = ''
-        inputUsername.value = ''
-        inputPassword.value = ''
-        inputAppkey.value = ''
+        disableUIs()
     } catch (error) {
         console.log(error)
         authenResult.textContent = error
@@ -115,6 +100,7 @@ btnESG.addEventListener('click', async () => {
     }
 
     txtESGJSON.value = 'Loading...'
+    txtSymbolStatus.textContent = ''
     try {
         let data = await requestESG(symbol, access_token)
         // console.log(data)
@@ -134,6 +120,8 @@ btnGetNewsHeadlines.addEventListener('click', async () => {
     if (symbol.length === 0) {
         return txtSymbolStatus.textContent = 'Please input symbol'
     }
+
+    txtSymbolStatus.textContent = ''
     txtNewsHeadlines.value = 'Loading...'
     try {
         let data = await getNewsHeadlines(symbol, access_token)
@@ -175,7 +163,7 @@ btnSymbology.addEventListener('click', async () => {
     }
 
     txtSymbology.value = 'Loading...'
-
+    txtSymbolStatus.textContent = ''
     try {
         let data = await getSymbology(symbol, reqBody, access_token)
         //console.log(data)
@@ -220,6 +208,7 @@ btnRDPPermID.addEventListener('click', async () => {
     }
 
     txtRDPPermID.value = 'Loading...'
+    txtSymbolStatus.textContent = ''
     try {
         let data = await getSymbology(symbol, reqBody, access_token)
         //console.log(data)
@@ -231,9 +220,54 @@ btnRDPPermID.addEventListener('click', async () => {
     }
 })
 
+// ---------------- UI function ---------------------------------------- //\
+
+const disableUIs = () => {
+    btnESG.disabled = true
+    
+    btnGetNewsHeadlines.disabled = true
+    btnSymbology.disabled = true
+    btnRDPPermID.disabled = true
+    btnLogOut.disabled = true
+
+    btnESG.style.color = '#8C8C8C'
+    btnGetNewsHeadlines.style.color = '#8C8C8C'
+    btnSymbology.style.color = '#8C8C8C'
+    btnRDPPermID.style.color = '#8C8C8C'
+    btnLogOut.style.color = '#8C8C8C'
+
+    txtESGJSON.value = ''
+    txtNewsHeadlines.value = ''
+    txtSymbology.value = ''
+    txtRDPPermID.value = ''
+    inputDataSymbol.value = ''
+    inputUsername.value = ''
+    inputPassword.value = ''
+    inputAppkey.value = ''
+    txtSymbolStatus.textContent = ''
+}
+
+const enableUIs = () => {
+
+    btnESG.disabled = false
+    btnGetNewsHeadlines.disabled = false
+    btnSymbology.disabled = false
+    btnRDPPermID.disabled = false
+    btnLogOut.disabled = false
+
+ 
+    btnESG.style.color = '#000000'
+    btnGetNewsHeadlines.style.color = '#000000'
+    btnSymbology.style.color = '#000000'
+    btnRDPPermID.style.color = '#000000'
+    btnLogOut.style.color = '#000000'
+}
+
+
+
 // ---------------- REST API functions ---------------------------------------- //
 
-
+// Send Authentication Request message (Password Grant and Refresh Grant) to proxy-server "/auth/oauth2/${rdpAuthVersion}/token" endpoint)
 const authenRDP = async (opt) => {
 
     const authenURL = `/auth/oauth2/${rdpAuthVersion}/token`
@@ -281,6 +315,7 @@ const authenRDP = async (opt) => {
     //return await response.json()
 }
 
+// Send Authentication Revoke Request message to proxy-server "/auth/oauth2/${rdpAuthVersion}/revoke" endpoint)
 const revokeRDP = async (accessToken, client_id) => {
 
     const authenURL = `/auth/oauth2/${rdpAuthVersion}/revoke`
