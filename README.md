@@ -1,4 +1,4 @@
-# How to set up HTTP Proxy for the Refinitiv Data Platform APIs on web browser with Express.js
+# How to set up HTTP Proxy for the Refinitiv Data Platform APIs on the Web Browser with Express.js
 - Last update: February 2022
 - Environment: Windows 
 - Compiler: Node.js
@@ -97,8 +97,9 @@ Then, apply the RDP API URL ```https://api.refinitiv.com``` to the apiProxy and 
 
 ```
 //server.js
-const rdpServer = process.env.RDP_BASE_URL //https://api.refinitiv.com
-const rdpAuthVersion = process.env.RDP_AUTH_VERSION
+const rdpServer = process.env.RDP_BASE_URL || 'https://api.refinitiv.com'
+const rdpAuthVersion = process.env.RDP_AUTH_VERSION || 'v1'
+
 
 //For the RDP Authentication service
 app.post(`/auth/oauth2/${rdpAuthVersion}/*`, (req, res) => {
@@ -128,9 +129,9 @@ Next, add more HTTP route handlers for the ESG, News, and Symbology services.
 
 ```
 //server.js
-const rdpEsgVersion = process.env.RDP_ESG_VERSION
-const rdpNewsVersion = process.env.RDP_NEWS_VERSION
-const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION
+const rdpEsgVersion = process.env.RDP_ESG_VERSION || 'v2'
+const rdpNewsVersion = process.env.RDP_NEWS_VERSION || 'v1'
+const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION || 'v1'
 
 //For the RDP Symbology service 
 app.post(`/discovery/symbology/${rdpSymbologyVersion}/lookup`, (req, res) => {
@@ -532,11 +533,11 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
 
 *Question* : I double-click the *index.html* file to open the example web application, input my RDP credentials, then click the authentication button. The page shows **TypeError: Failed to fetch** error message.
 
-*Answer*: You cannot run the example by just double-click the *index.html* file. You need to run the example web-server and open the example web application with **http:localhost:8080** URL in the web browser.
+*Answer*: You cannot run the example by just double-clicking the *index.html* file. You need to run the example web-server and open the example web application with **http:localhost:8080** URL in the web browser.
 
 *Question* : I try to start the web-server with the ```npm start``` command, but it shows **Error: Cannot find module 'express'** error message.
 
-*Answer*: You need to install the project dependencies with the ```npm install``` command before run the ```npm start``` command.
+*Answer*: You need to install the project dependencies with the ```npm install``` command before running the ```npm start``` command.
 
 *Question* : I do not have the RDP credentials.
 
@@ -544,23 +545,23 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
 
 *Question* : I got the ```{"error":"access_denied"}``` error message when I click the authentication button.
 
-*Answer*: This error message means your RDP credentials do not have a permission to access the API. Please contact your Refinitiv's representative to verify your account permission.
+*Answer*: This error message means your RDP credentials do not have permission to access the API. Please contact your Refinitiv's representative to verify your account permission.
 
 *Question* : I got the ```{"error": "access_denied", "error_description": "Invalid username or password."}``` when I click the authentication button.
 
 *Answer*: This error message means your RDP credentials are not valid. Please contact your Refinitiv's representative to verify your credentials.
 
-*Question* : I got the error 403 message when I click the request RDP data buttons.
+*Question* : I got the "error 403" message when I click the request RDP data buttons.
 
-*Answer*: The HTTP 403 (403 Forbidden) means you do not have a permission to request data. Please contact your Refinitiv's representative to verify your account permission.
+*Answer*: The HTTP 403 (403 Forbidden) means you do not have permission to request data. Please contact your Refinitiv's representative to verify your account permission.
 
 ## <a id="Conclusion"></a>Conclusion
 
-With software development architecture, the application (or service) does not access only servers in its backend anymore. It needs to connect to various service providers across internet such as Cloud data storage, Web Services, etc. The proxy and reverse proxy servers help the application to integrate with the different services and data providers. 
+With software development architecture, the application (or service) does not access only servers in its backend anymore. It needs to connect to various service providers across the internet such as Cloud data storage, Web Services, etc. The proxy and reverse proxy servers help the application to integrate with the different services and data providers. 
 
-This example project shows how to integrate the web browser application to the different services with the reverse proxy server. The client-side JavaScript application can access data from various services that hosted on different locations such as the Refinitiv Refinitiv Data Platform, [Datastream Web Service](https://developers.refinitiv.com/en/api-catalog/eikon/datastream-web-service/), [https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api](https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api), etc. However, this example implementation aims for Development and POC purposes only, not for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. 
+This example project shows how to integrate the web browser application to the different services with the reverse proxy server. The client-side JavaScript application can access data from various services that are hosted on different locations such as the Refinitiv Refinitiv Data Platform, [Datastream Web Service](https://developers.refinitiv.com/en/api-catalog/eikon/datastream-web-service/), [https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api](https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api), etc. However, this example implementation aims for Development and POC purposes only, not for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. 
 
-In the same time, the [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The APIs are easy to integrate to any applications and platforms that supports the HTTP protocol and JSON message format. 
+At the same time, the [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The APIs are easy to integrate into any application and platform that supports the HTTP protocol and JSON message format. 
 
 ## <a id="references"></a>References
 For further details, please check out the following resources:
@@ -576,5 +577,6 @@ For further details, please check out the following resources:
 * [How to test Refinitiv Data Platform REST API easily with Visual Studio Code - REST Client extensions](https://developers.refinitiv.com/en/article-catalog/article/how-to-test-refinitiv-data-platform-rest-api-easily-with-visual-studio-code) article.
 * [Using RDP API to request ESG data on Jupyter Notebook](https://developers.refinitiv.com/en/article-catalog/article/using-rdp-api-request-esg-data-jupyter-notebook) article.
 * [Use Fiddler to Capture RDP Interactions](https://developers.refinitiv.com/en/article-catalog/article/use-fiddler-to-capture-rdp-interactions) article.
+* [Medium Article](https://wasin-waeosri.medium.com/setting-up-http-proxy-for-the-rest-apis-on-the-web-browser-with-express-js-25678813d40f).
 
 For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [the Developers Community Q&A page](https://community.developers.refinitiv.com/).
