@@ -347,7 +347,7 @@ const revokeRDP = async (accessToken, client_id) => {
 
 //Send a Refresh Grant message before Access Token's expires (expires_in time)
 const setRefreshTimer = () => {
-    let millis = (parseInt(expires_in) - 30) * 1000; //
+    let millis = (parseInt(expires_in) * 0.90) * 1000;
     let intervalID = window.setInterval(async () => {
         try {
             await authenRDP({

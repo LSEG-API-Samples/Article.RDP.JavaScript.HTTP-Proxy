@@ -17,7 +17,7 @@ This example project shows how to use a reverse proxy to make the JavaScript on 
 the [http-proxy](https://www.npmjs.com/package/http-proxy) module and [Express.js](https://expressjs.com/) web framework for the webserver and reverse proxy functionalities. 
 
 **Note**:
-Please be informed that this article and example projects aim for Development and POC purposes only. This kind of reverse proxy implementation is not recommended for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. Alternatively, you may use [the RDP Implicit Grant](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
+Please be informed that this article and example projects aim for Development and POC purposes only. This kind of reverse proxy implementation is not recommended for Production use. You may use a de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. Alternatively, you may use [the RDP Implicit Grant](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
 
 ## <a id="cross_domain"></a>Why we need a Reverse Proxy?
 
@@ -45,7 +45,7 @@ Some RDP services like the Environmental - Social - and Governance (ESG), News, 
 You can use other libraries/tools to do proxy work for you like this [Refinitiv-API-Samples/Example.RDPAPI.TypeScript.AngularESGWebapp](https://github.com/Refinitiv-API-Samples/Example.RDPAPI.TypeScript.AngularESGWebapp) project that uses [Angular](https://angular.io/) platform as a proxy on the client-side. 
 
 **Note**:
-Let me remind you again, this proxy implementation aims for Development and POC purposes only. It is not recommended for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. Alternatively, you may use [the RDP Implicit Grant](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
+Let me remind you again, this proxy implementation aims for Development and POC purposes only. It is not recommended for Production use. You may use a de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. Alternatively, you may use [the RDP Implicit Grant](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis/tutorials#authorization-for-browser-based-applications).
 
 ## <a id="expressjs-proxy"></a>Express.js with HTTP-Proxy
 
@@ -271,7 +271,7 @@ const authenRDP = async (opt) => {
 
 //Send a Refresh Grant message before Access Token's expires (expires_in time)
 const setRefreshTimer = () => {
-    let millis = (parseInt(expires_in) - 30) * 1000; //
+    let millis = (parseInt(expires_in) * 0.90) * 1000;
     let intervalID = window.setInterval(async () => {
         try {
             await authenRDP({
@@ -460,7 +460,7 @@ btnRDPPermID.addEventListener('click', async () => {
     }
 })
 ```
-That covers the basic HTTP operations workflow of the client-side *app.js* code.  The example web application is now can login to the RDP, get access token, and request data through the http-proxy.
+That covers the basic HTTP operations workflow of the client-side *app.js* code.  The example web application is now can log in to the RDP, get access token, and request data through the http-proxy.
 
 ![figure-5](images/05_app_example.png "Example App")
 
@@ -470,7 +470,7 @@ This demo project requires the following dependencies software.
 2. [Node.js](https://nodejs.org/en/) JavaScript runtime.
 3. Internet connection.
 
-Please contact your Refinitiv's representative to help you to access the RDP account and services. You can find more detail regarding the RDP access credentials set up from the lease see the *Getting Started for User ID* section of [Getting Start with Refinitiv Data Platform article](https://developers.refinitiv.com/en/article-catalog/article/getting-start-with-refinitiv-data-platform) article.
+Please contact your Refinitiv's representative to help you to access the RDP account and services. You can find more detail regarding the RDP access credentials set up from the lease see the *Getting Started for User ID* section of [Getting Start with Refinitiv Data Platform](https://developers.refinitiv.com/en/article-catalog/article/getting-start-with-refinitiv-data-platform) article.
 
 ##  <a id="project_files"></a>Project files
 This example project contains the following files and folders
@@ -531,35 +531,35 @@ Please be informed that you need the [Docker Desktop/Engine](https://docs.docker
 
 ## <a id="troubleshooting"></a>Troubleshooting
 
-*Question* : I double-click the *index.html* file to open the example web application, input my RDP credentials, then click the authentication button. The page shows **TypeError: Failed to fetch** error message.
+**Question**: I double-click the *index.html* file to open the example web application, input my RDP credentials, then click the authentication button. The page shows **TypeError: Failed to fetch** error message.
 
-*Answer*: You cannot run the example by just double-clicking the *index.html* file. You need to run the example web-server and open the example web application with **http:localhost:8080** URL in the web browser.
+**Answer**: You cannot run the example by just double-clicking the *index.html* file. You need to run the example web-server and open the example web application with **http:localhost:8080** URL in the web browser.
 
-*Question* : I try to start the web-server with the ```npm start``` command, but it shows **Error: Cannot find module 'express'** error message.
+**Question**: I try to start the web-server with the ```npm start``` command, but it shows **Error: Cannot find module 'express'** error message.
 
-*Answer*: You need to install the project dependencies with the ```npm install``` command before running the ```npm start``` command.
+**Answer**: You need to install the project dependencies with the ```npm install``` command before running the ```npm start``` command.
 
-*Question* : I do not have the RDP credentials.
+**Question**: I do not have the RDP credentials.
 
-*Answer*: Please contact your Refinitiv's representative to help you to access the RDP account and services.
+**Answer**: Please contact your Refinitiv's representative to help you to access the RDP account and services.
 
-*Question* : I got the ```{"error":"access_denied"}``` error message when I click the authentication button.
+**Question**: I got the ```{"error":"access_denied"}``` error message when I click the authentication button.
 
-*Answer*: This error message means your RDP credentials do not have permission to access the API. Please contact your Refinitiv's representative to verify your account permission.
+**Answer**: This error message means your RDP credentials do not have permission to access the API. Please contact your Refinitiv's representative to verify your account permission.
 
-*Question* : I got the ```{"error": "access_denied", "error_description": "Invalid username or password."}``` when I click the authentication button.
+**Question**: I got the ```{"error": "access_denied", "error_description": "Invalid username or password."}``` when I click the authentication button.
 
-*Answer*: This error message means your RDP credentials are not valid. Please contact your Refinitiv's representative to verify your credentials.
+**Answer**: This error message means your RDP credentials are not valid. Please contact your Refinitiv's representative to verify your credentials.
 
-*Question* : I got the "error 403" message when I click the request RDP data buttons.
+**Question**: I got the "error 403" message when I click the request RDP data buttons.
 
-*Answer*: The HTTP 403 (403 Forbidden) means you do not have permission to request data. Please contact your Refinitiv's representative to verify your account permission.
+**Answer**: The HTTP 403 (403 Forbidden) means you do not have permission to request data. Please contact your Refinitiv's representative to verify your account permission.
 
 ## <a id="Conclusion"></a>Conclusion
 
 With software development architecture, the application (or service) does not access only servers in its backend anymore. It needs to connect to various service providers across the internet such as Cloud data storage, Web Services, etc. The proxy and reverse proxy servers help the application to integrate with the different services and data providers. 
 
-This example project shows how to integrate the web browser application to the different services with the reverse proxy server. The client-side JavaScript application can access data from various services that are hosted on different locations such as the Refinitiv Refinitiv Data Platform, [Datastream Web Service](https://developers.refinitiv.com/en/api-catalog/eikon/datastream-web-service/), [https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api](https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api), etc. However, this example implementation aims for Development and POC purposes only, not for Production use. You may use the de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. 
+This example project shows how to integrate the web browser application to the different services with the reverse proxy server. The client-side JavaScript application can access data from various services that are hosted on different locations such as the Refinitiv Refinitiv Data Platform, [Datastream Web Service](https://developers.refinitiv.com/en/api-catalog/eikon/datastream-web-service/), [Refinitiv Tick History (RTH) - REST API](https://developers.refinitiv.com/en/api-catalog/refinitiv-tick-history/refinitiv-tick-history-rth-rest-api), etc. However, this example implementation aims for Development and POC purposes only, not for Production use. You may use a de-facto server like [Nginx](https://www.nginx.com/) for the reverse proxy in your environment. 
 
 At the same time, the [Refinitiv Data Platform (RDP) APIs](https://developers.refinitiv.com/en/api-catalog/refinitiv-data-platform/refinitiv-data-platform-apis) provide various Refinitiv data and content for developers via easy-to-use Web-based API. The APIs are easy to integrate into any application and platform that supports the HTTP protocol and JSON message format. 
 
@@ -579,4 +579,4 @@ For further details, please check out the following resources:
 * [Use Fiddler to Capture RDP Interactions](https://developers.refinitiv.com/en/article-catalog/article/use-fiddler-to-capture-rdp-interactions) article.
 * [Medium Article](https://wasin-waeosri.medium.com/setting-up-http-proxy-for-the-rest-apis-on-the-web-browser-with-express-js-25678813d40f).
 
-For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [the Developers Community Q&A page](https://community.developers.refinitiv.com/).
+For any questions related to Refinitiv Data Platform APIs, please use the [RDP APIs Forum](https://community.developers.refinitiv.com/spaces/231/index.html) on the [Developers Community Q&A page](https://community.developers.refinitiv.com/).
