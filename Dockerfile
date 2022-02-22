@@ -1,7 +1,7 @@
 # Using official Node.js image from https://hub.docker.com/_/node
 FROM node:16.14.0-alpine3.15
 
-LABEL maintainer="Developer Advocate"
+LABEL maintainer="Refinitiv Developer Advocate"
 # Create app directory
 WORKDIR /app
 
@@ -10,7 +10,8 @@ WORKDIR /app
 # where available (npm@5+)
 COPY package*.json /app
 ENV NODE_ENV=production
-RUN npm install --production
+RUN npm install -g npm@8.5.1 \
+    && npm install --production
 
 # Bundle app source
 COPY . .

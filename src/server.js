@@ -60,6 +60,10 @@ app.get(`/data/news/${rdpNewsVersion}/headlines/`, (req, res) => {
     apiProxy.web(req, res, {target: rdpServer})
 })
 
+process.on('SIGINT', function() {
+    process.exit();
+});
+
 //Start the server
 app.listen(port, () => {
     console.log(`Server is up on port ${port}.`)
