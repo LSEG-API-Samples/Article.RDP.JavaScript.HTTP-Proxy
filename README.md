@@ -226,7 +226,7 @@ The ```authenRDP()``` function uses the [Fetch API](https://developer.mozilla.or
 
 Once the authentication success, the function gets the RDP Auth service response message (via *server.js*), and keeps the following RDP token information in the client-side variables.
 
-- **access_token**: The token used to invoke REST data API calls as described above. The application must keep this credential for further RDP/Refinitiv Real-Time - Optimized requests.
+- **access_token**: The token used to invoke REST data API calls as described above. The application must keep this credential for further RDP/Real-Time - Optimized requests.
 - **refresh_token**: Refresh token to be used for obtaining an updated access token before expiration. The application must keep this credential for access token renewal.
 - **expires_in**: Access token validity time in seconds.
 
