@@ -2,7 +2,7 @@
 //|            This source code is provided under the Apache 2.0 license      --
 //|  and is provided AS IS with no warranty or guarantee of fit for purpose.  --
 //|                See the project's LICENSE.md for details.                  --
-//|           Copyright (C) 2017-2022 Refinitiv. All rights reserved.         --
+//|           Copyright (C) 2017-2025 LSEG. All rights reserved.              --
 //|-----------------------------------------------------------------------------
 
 const path = require('path')
@@ -37,7 +37,7 @@ const rdpNewsVersion = process.env.RDP_NEWS_VERSION || 'v1'
 const rdpSymbologyVersion = process.env.RDP_SYMBOLOGY_VERSION || 'v1'
 
 //For the RDP Authentication service
-app.post(`/auth/oauth2/${rdpAuthVersion}/*`, (req, res) => {
+app.post(`/auth/oauth2/${rdpAuthVersion}/:endpoint`, (req, res) => {
     console.log(`redirecting to RDP ${req.url}`)
     apiProxy.web(req, res, {target: rdpServer})
 });
@@ -49,7 +49,7 @@ app.post(`/discovery/symbology/${rdpSymbologyVersion}/lookup`, (req, res) => {
 })
 
 //For the RDP ESG service 
-app.get(`/data/environmental-social-governance/${rdpEsgVersion}/views/*`, (req, res) => {
+app.get(`/data/environmental-social-governance/${rdpEsgVersion}/views/:endpoint`, (req, res) => {
     console.log(`redirecting to RDP ${req.url}`)
     apiProxy.web(req, res, {target: rdpServer})
 })

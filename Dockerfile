@@ -1,7 +1,8 @@
 # Using official Node.js image from https://hub.docker.com/_/node
-FROM node:16.14.0-alpine3.15
+# FROM node:16.14.0-alpine3.15
+FROM node:22.20.0-alpine3.21
 
-LABEL maintainer="Refinitiv Developer Advocate"
+LABEL maintainer="LSEG Developer Relations"
 # Create app directory
 WORKDIR /app
 
